@@ -27,6 +27,7 @@ def close():
     #    print(str(3 - i) + '...')
     #    sleep(1)
     print('Goodbye :)')
+    sleep(0.5)
     sys.exit()
 
 
@@ -59,13 +60,11 @@ if outputName[0] == '.' or outputName[0] == ' ':
 if outputName[-1] == '.' or outputName[-1] == ' ':
     outputName = outputName[-1:]
 
-print(outputName)
-
 if os.path.exists(outputName):
     if not inquirer.confirm(
         message='This profile already exists! Are you sure you want to overwrite it?'
     ).execute(separatorLine()):
-        print('Canceled...')
+        print('Canceled')
         close()
 
 separatorLine()
@@ -102,10 +101,10 @@ with open(f'{outputName}/mods.yml', 'w') as outputFile:
 print('Finished!\n')
 
 print(
-    f'"{outputName}" profile contains the following mods:\n{'\n    '.join(allModNames)}\n'
+    f'"{outputName}" profile contains the following mods:\n  - {'\n  - '.join(allModNames)}\n'
 )
 
-print('! Make sure to reinstall mods! (Refer to README)')
+print('! Make sure to reinstall mods ! (Refer to README)')
 
 separatorLine()
 
