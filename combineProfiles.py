@@ -2,7 +2,7 @@ import os
 import sys
 import re
 import shutil
-from pprint import pprint
+import configparser
 
 from time import sleep
 
@@ -10,13 +10,6 @@ from InquirerPy import inquirer
 from InquirerPy.separator import Separator
 
 import yaml
-
-
-def noProfiles():
-    print(
-        'There are no profiles in the folder where the exe file is located. Look at README.txt to see if you did something wrong.'
-    )
-    close()
 
 
 def close():
@@ -31,6 +24,9 @@ def close():
     sys.exit()
 
 
+print(('!!! Make sure to read the README.md before you use this tool !!!\n\n' * 3)[:-1])
+
+
 def separatorLine():
     print('-' * 70)
 
@@ -40,7 +36,10 @@ allProfiles = [
 ]
 
 if allProfiles == []:
-    noProfiles()
+    print(
+        'There are no profiles in the folder where the exe file is located. Look at README.txt to see if you did something wrong.'
+    )
+    close()
 
 profiles = inquirer.checkbox(
     message='What profiles do you want to combine?\n(Space: Toggle, Enter: Submit)',
@@ -62,12 +61,13 @@ if outputName[-1] == '.' or outputName[-1] == ' ':
 
 if os.path.exists(outputName):
     if not inquirer.confirm(
-        message='This profile already exists! Are you sure you want to overwrite it?'
+        message='This profile already exists! Do you want to overwrite it?'
     ).execute(separatorLine()):
         print('Canceled')
         close()
 
 separatorLine()
+
 
 if os.path.exists(outputName):
     shutil.rmtree(outputName)
